@@ -1,12 +1,11 @@
-module;
+#ifndef INCLUDE_GUARD_HEADER_TYPE
+#define INCLUDE_GUARD_HEADER_TYPE
 
 #include <cstring>
 #include <string_view>
 #include <utility>
 
-export module Type;
-
-export template <typename T>
+template <typename T>
 std::string_view getType() {
 #ifdef __FUNCSIG__ // msvc
     std::string name{__FUNCSIG__};
@@ -24,7 +23,6 @@ std::string_view getType() {
 #endif
 }
 
-export template <typename T>
-constexpr std::string_view getOriginalTypeString(T&& type) {
-    return getType<std::remove_cvref_t<T>>();
-}
+#define getTypeString(type) getType<decltype(type)>()
+
+#endif // INCLUDE_GUARD_HEADER_TYPE
