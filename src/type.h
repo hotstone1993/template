@@ -25,4 +25,20 @@ std::string_view getType() {
 
 #define getTypeString(type) getType<decltype(type)>()
 
+
+
+void typeTest() {
+    startTest();
+
+    int a = 1;
+    const int& c = 1;
+    std::cout << getTypeString(c) << std::endl;
+    
+    endTest();
+}
+
+
+    // std::cout << "sum - " << sum_left_fold(1, -2, 3, -4, 5) << std::endl;
+
+
 #endif // INCLUDE_GUARD_HEADER_TYPE
