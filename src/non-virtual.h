@@ -44,6 +44,10 @@ public:
 	constexpr auto set_foo(same_as_any<TFoos...> auto input_foo) -> void {
 		foo = input_foo;
 	}
+
+    [[nodiscard]] auto func() const -> int {
+		return std::visit([](auto& obj) -> auto { return obj.func(); }, foo);
+    }
 private:
 	std::variant<TFoos...> foo{};
 };
@@ -51,6 +55,17 @@ private:
 
 void nonVirtualTest() {
     startTest();
+
+    Foo f0;
+    Foo1 f1;
+    Foo2 f2;
+
+    Bar<Foo, Foo1, Foo2> b{f0};
+	std::cout << b.func() << std::endl;
+    b.set_foo(f1);
+	std::cout << b.func() << std::endl;
+    b.set_foo(f2);
+	std::cout << b.func() << std::endl;
 
     endTest();
 }
