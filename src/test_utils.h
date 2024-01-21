@@ -14,8 +14,8 @@ std::string toUpper(std::string_view sv) {
 }
 
 
-void startTest() {
-    std::string_view fileName{__FILE__};
+void startTest(std::string_view file) {
+    std::string_view fileName{file};
     int startIndex = fileName.find_last_of("/");
     int endIndex = fileName.find_last_of(".");
     std::string_view testName = fileName.substr(startIndex + 1, endIndex - startIndex - 1);

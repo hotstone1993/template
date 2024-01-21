@@ -28,7 +28,7 @@ std::string_view getType() {
 
 
 void typeTest() {
-    startTest();
+    startTest(__FILE__);
 
     int a = 1;
     const int& c = 1;
