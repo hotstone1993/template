@@ -71,6 +71,22 @@ auto ol = Overload{
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
+// C++23 CRTP
+// struct Shape {
+// 	template <typename T>
+// 	void draw(this T&& self) {
+// 		self.draw_impl();
+// 	}
+// };
+
+// struct Rectangle: public Shape {
+// 	void draw_impl() {
+// 		std::cout << "Rectangle" << std::endl;
+// 	}
+// };
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
 void nonVirtualTest() {
     startTest(__FILE__);
 
