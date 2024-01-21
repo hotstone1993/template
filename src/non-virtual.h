@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <variant>
 
+////////////////////////////////////////////////////////////////////////////////////////////////
 template<typename T, typename... Ts>
 concept same_as_any = (... or std::same_as<T, Ts>);
 
@@ -51,6 +52,24 @@ public:
 private:
 	std::variant<TFoos...> foo{};
 };
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Overload pattern
+template<typename... Ls>
+struct Overload : Ls... {
+	using Ls::operator()...;
+};
+
+// Class Template Argument Deduction (CTAD)
+template<typename... Ls> Overload(Ls...) -> Overload<Ls...>;
+
+auto ol = Overload{
+	[](int x) { return x * x; },
+	[](double x) { return x + 0.5; },
+	[](const std::string& s) { return s.size(); }
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 void nonVirtualTest() {
@@ -66,9 +85,18 @@ void nonVirtualTest() {
 	std::cout << b.func() << std::endl;
     b.set_foo(f2);
 	std::cout << b.func() << std::endl;
+	
+	int x1 = 2;
+	double x2 = 2.0;
+	std::string s{"Hello"};
+
+	std::cout << ol(x1) << std::endl;
+	std::cout << ol(x2) << std::endl;
+	std::cout << ol(s) << std::endl;
 
     endTest();
 }
+
 
 
 #endif
